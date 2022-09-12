@@ -68,7 +68,6 @@ public class Main {
 		User selUser = null;
 		String nameActiveUser = "";
 		
-		//menuApp();
 		
 		do {
 			option = Input.integer( "Usuario activo: " + nameActiveUser + "\n\n"
@@ -140,43 +139,6 @@ public class Main {
 	
 	
 	
-	public static void menuApp() {
-		String userName = "";
-		String option = "";
-		User activeUser = null;
-			
-		do {
-			System.out.println("Red Social 1.0"); 
-			userName = Input.string( "\nIntroduce tu nombre de usuario (intro para ver opciones):\n");
-
-			if (userName != "") {
-				//activeUser = getUser();
-				if (activeUser == null) {
-					System.out.println("<!> El usuario no existe.");
-				} else {
-				}
-			} else {
-				do {
-					option = Input.string( "\nSelecciona: [C]rear nuevo usuario, [R]epetir ingreso, [S]alir:\n");
-					
-					switch (option) {
-					case "C":
-						break;
-					case "S":
-						System.exit(0);
-						break;
-					default:
-						System.out.println("Acción inexistente");
-						option = "";
-						break;
-					}	
-				} while (option == "");
-			}	
-		} while (option != "S");
-		
-		
-		
-	}
 	
 	
 	private static User selUser(List<User> usersList) {
@@ -207,13 +169,17 @@ public class Main {
 	public static void deleteUser(User user, List<User> usersList) {
 		User userInList = null;
 		user.deleteData();
+		boolean removed = false;
+		int index = 0;
+		int sizeUsersList = usersList.size();
 		
-		for (int i = 0; i < usersList.size(); i++) {
-			userInList = usersList.get(i);
+		while ( (!removed) || (index < sizeUsersList) ) {
+			userInList = usersList.get(index);
 			if (userInList.getName().equals(user.getName())) {
-				usersList.remove(i);
-				break;
+				usersList.remove(index);
+				removed = true;
 			}
+			index ++;
 		}
 	}
 	
@@ -227,13 +193,19 @@ public class Main {
 		
 	
 	private static User searchUser(List<User> usersList, String nameUser) {
+		User user = null;
 		User result = null;
-		for (User user : usersList) {
+		int index = 0;
+		int sizeUsersList = usersList.size();
+		
+		while ( (result == null) || (index < sizeUsersList) ) {
+			user = usersList.get(index);
 			if (user.getName().equals(nameUser)) {
 				result = user;
-				break;
 			}
+			index ++;
 		}
+
 		return result;
 	}
 

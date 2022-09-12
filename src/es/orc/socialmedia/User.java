@@ -42,11 +42,17 @@ public class User {
 	
 	
 	public void delFollowed(User user) {
-		for (User userF : followedList) {
-			if (userF.getName().equals(user.getName())) {
+		int index = 0;
+		int sizeFollowedList = followedList.size();
+		boolean removed = false;
+		User userFollowed = null; 
+		
+		while ( (!removed) || (index < sizeFollowedList) ) {
+			if (userFollowed.getName().equals(user.getName())) {
 				this.followedList.remove(user);
-				break;
+				removed = true;
 			}
+			index ++;
 		}
 	}
 	
